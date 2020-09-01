@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Hello</h2>
+<h2>Is Authenticated..? {{ user.is_authenticated }} <---> {{ user.username }}</h2>
+{% for tweet in all_tweets %}
+{{ tweet }}
+<br>
+{% endfor %}
 {% endblock %}
