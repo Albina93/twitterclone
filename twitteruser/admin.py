@@ -10,6 +10,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 'fields': (
                     'displayname',
+                    'following'
                     
                 ),
             },

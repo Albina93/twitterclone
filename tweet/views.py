@@ -19,3 +19,11 @@ def add_tweet_view(request):
     return render(request, 'generic.html', {'form': form})
     
 
+
+def tweet_detail_view(request, tweet_id):
+    tweets = models.Tweet.objects.filter(id=tweet_id)
+    total_tweets = models.Tweet.objects.filter(twitter_user__username=request.user.username).count()
+    return render(request, 'index.html', {'tweets': tweets, 'total_tweets': total_tweets})
+
+
+

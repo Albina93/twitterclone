@@ -1,8 +1,36 @@
+
 {% extends 'base.html' %}
+
 {% block content %}
-<h2>Is Authenticated..? {{ user.is_authenticated }} <---> {{ user.username }}</h2>
-{% for tweet in all_tweets %}
-{{ tweet }}
-<br>
-{% endfor %}
+<p>Is Authenticated..? {{ user.is_authenticated }} <---> {{ user.username }}<p>
+<div class="row">
+    <div class="col-sm-4">
+        
+       <ul>
+           <h3>{{ user.displayname }}</h3>
+           {% if request.user.is_authenticated %}
+            <a href="{% url 'profilepage' user.username %}">@{{ user.username }}</a>
+            {% endif %}
+            <h3>Tweets: {{ total_tweets }}</h3>
+            
+            
+            
+        </ul> 
+    </div>
+    
+    
+    
+    <div class="col-sm-8">
+        {% for tweet in tweets %}
+        <ul>
+            <li>@{{ tweet.twitter_user }} - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
+            <li>{{ tweet.text_content }}</li>
+            <a href="{% url 'follower_page' tweet.twitter_user %}">FOLLOW</a>
+            <a href="{% url 'unfollower_page' tweet.twitter_user %}">UNFOLLOW</a>
+        
+        </ul>
+        {% endfor %}
+</div>
+</div>
+
 {% endblock %}

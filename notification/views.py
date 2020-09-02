@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
-def index_view(request):
+def notification_view(request):
     return render(request, 'index.html',)
 
