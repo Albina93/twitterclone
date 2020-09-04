@@ -12,6 +12,7 @@
             <a href="{% url 'profilepage' user.username %}">@{{ user.username }}</a>
             {% endif %}
             <h3>Tweets: {{ total_tweets }}</h3>
+            <h3>Following: {{ user.following.count }}</h3>
             
             
             
@@ -23,11 +24,13 @@
     <div class="col-sm-8">
         {% for tweet in tweets %}
         <ul>
-            <li>@{{ tweet.twitter_user }} - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
+            <li><a href="{% url 'profilepage' tweet.twitter_user %}">@{{ tweet.twitter_user }}</a> - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
             <li>{{ tweet.text_content }}</li>
-            <a href="{% url 'follower_page' tweet.twitter_user %}">FOLLOW</a>
-            <a href="{% url 'unfollower_page' tweet.twitter_user %}">UNFOLLOW</a>
-        
+
+            {% if tweet.twitter_user != request.user %}
+            <a href="{% url 'unfollower_page' tweet.twitter_user %}">UNFOLLOW</a> 
+            {% endif %}
+
         </ul>
         {% endfor %}
 </div>

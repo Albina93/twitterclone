@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        
+       <ul>
+
+           <h5>Displayname: {{ user_profile.displayname }}</h5>
+           <h5>Username: <a href="{% url 'profilepage' user.username %}">@{{ user_profile.username }}</a></h5>
+            <h5>Tweets: {{ total_tweets }}</h5>
+            <h5>Following: {{ user_profile.following.count }}</h5>
+
+            {% for following in following_list %}
+            <ul>
+                <li>{{ following }}</li>
+            </ul>
+            {% endfor %}
+
+            {% if user_profile != request.user %}
+                {% if user_profile in  following_list %}
+                    <a href="{% url 'unfollower_page' user_profile.username %}">UNFOLLOW</a> 
+            
+                {% else %}
+                    <a href="{% url 'follower_page' user_profile.username %}">FOLLOW</a>
+
+                {% endif %}
+            {% endif %}
+            
+        </ul> 
+    </div>
+    
+    
+    
+    <div class="col-sm-8">
+        {% for tweet in tweets %}
+        <ul>
+            <li>@{{ tweet.twitter_user }} - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
+            <li>{{ tweet.text_content }}</li>
+        
+        </ul>
+        {% endfor %}
+</div>
+</div>
+
+{% endblock %}
