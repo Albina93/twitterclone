@@ -3,19 +3,14 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-4">
-        
+        <br>
+        <br>
        <ul>
 
            <h5>Displayname: {{ user_profile.displayname }}</h5>
            <h5>Username: <a href="{% url 'profilepage' user_profile.username %}">@{{ user_profile.username }}</a></h5>
             <h5>Tweets: {{ total_tweets }}</h5>
             <h5>Following: {{ user_profile.following.count }}</h5>
-
-            {% for following in following_list %}
-            <ul>
-                <li>{{ following }}</li>
-            </ul>
-            {% endfor %}
 
             {% if user_profile.username != request.user.username and request.user.is_authenticated %}
                 {% if user_profile in  following_list %}
@@ -33,6 +28,8 @@
     
     
     <div class="col-sm-8">
+        <br>
+        <br>
         {% for tweet in tweets %}
         <ul>
             <li>@{{ tweet.twitter_user }} - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
