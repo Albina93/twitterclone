@@ -22,7 +22,11 @@ def profile_view(request, user_name):
     user_profile = TwitterUserModel.objects.get(username=user_name)
     tweets = Tweet.objects.filter(twitter_user__username=user_name).order_by('-created_time')
     total_tweets = tweets.count()
-    following_list = request.user.following.all()
+    if request.user.is_authenticated:
+        following_list = request.user.following.all()
+    else:
+        following_list = []
+
     return render(request, 'profile.html', {'tweets': tweets, 'total_tweets': total_tweets,  'user_profile': user_profile, 'following_list': following_list})
 
 

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-4">
+</div
+
+<div class="col-sm-8">
+        {% for tweet in tweets %}
+        <ul>
+            <li><a href="{% url 'profilepage' tweet.twitter_user %}">@{{ tweet.twitter_user }}</a> - <a href="{% url 'tweet_details' tweet.id %}">{{ tweet.created_time}}</a></li>
+            <li>{{ tweet.text_content }}</li>
+
+            {% if tweet.twitter_user != request.user %}
+            <a href="{% url 'unfollower_page' tweet.twitter_user %}">UNFOLLOW</a> 
+            {% endif %}
+
+        </ul>
+        {% endfor %}
+</div>
+</div>
+
+{% endblock %}

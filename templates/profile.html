@@ -7,7 +7,7 @@
        <ul>
 
            <h5>Displayname: {{ user_profile.displayname }}</h5>
-           <h5>Username: <a href="{% url 'profilepage' user.username %}">@{{ user_profile.username }}</a></h5>
+           <h5>Username: <a href="{% url 'profilepage' user_profile.username %}">@{{ user_profile.username }}</a></h5>
             <h5>Tweets: {{ total_tweets }}</h5>
             <h5>Following: {{ user_profile.following.count }}</h5>
 
@@ -17,7 +17,7 @@
             </ul>
             {% endfor %}
 
-            {% if user_profile != request.user %}
+            {% if user_profile.username != request.user.username and request.user.is_authenticated %}
                 {% if user_profile in  following_list %}
                     <a href="{% url 'unfollower_page' user_profile.username %}">UNFOLLOW</a> 
             

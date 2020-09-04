@@ -36,11 +36,11 @@
                 <a class="nav-link" href='/add_tweet/'>TWEETS</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'notification_page' %}"">NOTIFICATIONS {{ notif_count }}</a>
-            </li>
             
             {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'notification_page' %}"">NOTIFICATIONS: {{ notif_count }}</a>
+            </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profilepage' user.username %}">MY PROFILE</a>
                 </li>

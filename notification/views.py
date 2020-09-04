@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import Notification
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="loginpage")
 def notification_view(request):
     notifications = Notification.objects.filter(user_receive=request.user)
     
@@ -18,9 +20,12 @@ def notification_view(request):
 
 
 def total_count(request):
-    notifications = Notification.objects.filter(user_receive=request.user)
-    total = 0
-    for notif in notifications:
-        if notif.notif_flag == False:
-            total += 1
+    if request.user.is_authenticated:
+        notifications = Notification.objects.filter(user_receive=request.user)
+        total = 0
+        for notif in notifications:
+            if notif.notif_flag == False:
+                total += 1
+    else:
+        total = 0
     return total
