@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from .models import TwitterUserModel
 from tweet.models import Tweet
 from django.contrib.auth.decorators import login_required
+from notification import views
 
 
 @login_required(login_url="loginpage")
@@ -11,8 +12,9 @@ def index_view(request):
     user_tweets = Tweet.objects.filter(twitter_user=request.user).order_by('-created_time') 
     following_tweets = Tweet.objects.filter(twitter_user__in=request.user.following.all()).order_by('-created_time') 
     tweets = user_tweets | following_tweets
+    notif_count = views.total_count(request)
 
-    return render(request, 'index.html', {'tweets': tweets, 'total_tweets': total_tweets})
+    return render(request, 'index.html', {'tweets': tweets, 'total_tweets': total_tweets, 'notif_count': notif_count})
 
 
 

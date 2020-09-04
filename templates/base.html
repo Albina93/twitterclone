@@ -37,7 +37,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href='/notifications/'>NOTIFICATIONS</a>
+                <a class="nav-link" href="{% url 'notification_page' %}"">NOTIFICATIONS {{ notif_count }}</a>
             </li>
             
             {% if request.user.is_authenticated %}
